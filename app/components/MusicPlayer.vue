@@ -97,6 +97,24 @@ const tracks = [
     src: "/music/time-to-talk.mp3",
     cover: "/music/time-to-talk.jpg",
   },
+  {
+    title: "Wishing Dead",
+    artist: "Blacklite District",
+    src: "/music/wishing-dead.mp3",
+    cover: "/music/wishing-dead.jpg",
+  },
+  {
+    title: "For The Moment",
+    artist: "MARBL, Lex Junior",
+    src: "/music/for-the-moment.mp3",
+    cover: "/music/for-the-moment.jpg",
+  },
+  {
+    title: "The Devil in His Youth",
+    artist: "Protomartyr",
+    src: "/music/the-devil-in-his-youth.mp3",
+    cover: "/music/the-devil-in-his-youth.jpg",
+  },
 ];
 
 const audio = ref(null);
