@@ -149,15 +149,15 @@ function toggle() {
   else el.pause();
 }
 
-function selectTrack(next) {
+function selectTrack(next, forcePlay = false) {
   const total = playlist.value.length;
   index.value = (next + total) % total;
   currentTime.value = 0;
   const el = audio.value;
   if (!el) return;
-  const wasPlaying = playing.value;
+  const shouldPlay = forcePlay || playing.value;
   el.load();
-  if (wasPlaying) el.play();
+  if (shouldPlay) el.play();
 }
 
 const prev = () => selectTrack(index.value - 1);
@@ -179,7 +179,7 @@ function onLoadedMetadata() {
 }
 
 function onEnded() {
-  if (playlist.value.length > 1) next();
+  if (playlist.value.length > 1) selectTrack(index.value + 1, true);
   else {
     playing.value = false;
     currentTime.value = 0;
