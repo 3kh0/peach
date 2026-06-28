@@ -22,13 +22,13 @@
     "@vercel/speed-insights": "^2.0.0",
     "nuxt": "4.4.8",
     "tailwindcss": "^4.3.1",
-    "three": "^0.184.0",
+    "three": "^0.185.0",
     "vue": "^3.5.39",
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
     "@iconify-json/simple-icons": "^1.2.87",
-    "@types/three": "^0.184.1",
+    "@types/three": "^0.185.0",
     "oxfmt": "^0.56.0"
   }
 }
