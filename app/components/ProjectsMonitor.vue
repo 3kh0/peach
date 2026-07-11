@@ -13,7 +13,7 @@ const projects = [
       "Elegant Polymarket trading terminal for power users and paper trading, with better navigation, more detailed charts, and dedicated support for popular smarts in sports, crypto, and tons more. Built to be ultra performant.",
     tech: ["simple-icons:polygon", "simple-icons:nuxt", "simple-icons:d3"],
     demo: "https://stance.lol",
-    //repo: "https://github.com/3kh0/stance",
+    repo: "https://github.com/3kh0/stance",
     image: "/projects/stance.png",
   },
   {
