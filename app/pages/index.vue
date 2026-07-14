@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { reportError } from "~/utils/report-error";
+
 type MonitorScreen =
   | "welcome"
   | "cs2"

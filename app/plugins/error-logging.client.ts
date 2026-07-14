@@ -1,3 +1,5 @@
+import { reportError } from "~/utils/report-error";
+
 /**
  * Wires the Vue/Nuxt and global browser error channels into reportError so any
  * client-side breakage is logged and beaconed to the server (-> Vercel logs).

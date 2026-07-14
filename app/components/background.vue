@@ -56,6 +56,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import { reportError } from "~/utils/report-error";
 import { clamp } from "./monitor/utils.js";
 
 type Point = {

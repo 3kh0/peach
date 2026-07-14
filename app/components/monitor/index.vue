@@ -35,6 +35,7 @@
 
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, shallowRef, watch } from "vue";
+import { reportError } from "~/utils/report-error";
 import { ASCII_COLOR, ASCII_RAMP, clamp } from "./utils";
 
 const screens = Object.fromEntries(
