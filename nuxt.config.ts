@@ -41,7 +41,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  css: ["./app/assets/index.css"],
+  css: ["~/assets/index.css"],
 
   modules: [
     "@nuxt/image",
