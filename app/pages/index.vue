@@ -228,6 +228,15 @@ const linkMonitor = (s: MonitorScreen) => {
                     class="transition-transform duration-200 hover:scale-110"
                   />
                 </a>
+                <a href="https://vio.gay/" target="_blank">
+                  <img
+                    src="/88x31/vio.png"
+                    width="88"
+                    height="31"
+                    alt="vio.gay 88x31 button"
+                    class="transition-transform duration-200 hover:scale-110"
+                  />
+                </a>
               </div>
               <p class="mb-2 text-lg leading-8 text-white/82">
                 if you want to add mine, see below!
