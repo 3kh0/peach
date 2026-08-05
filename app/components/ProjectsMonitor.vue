@@ -563,8 +563,7 @@ onBeforeUnmount(() => {
             <pre
               class="absolute inset-0 m-0 font-mono text-[12px] leading-[1.3] text-[#d7d7d7] whitespace-pre select-none [-webkit-text-size-adjust:100%] [text-size-adjust:100%]"
               :style="bootPad"
-              >{{ bootText }}</pre
-            >
+              >{{ bootText }}</pre>
           </div>
         </section>
       </div>

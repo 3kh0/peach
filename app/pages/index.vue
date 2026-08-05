@@ -39,8 +39,9 @@ const linkMonitor = (s: MonitorScreen) => {
           <h1 class="text-3xl text-white sm:text-4xl">hi, i'm echo (aka rowan)</h1>
 
           <p class="mt-8 max-w-lg text-lg leading-8 text-white/82">
-            i am a teenager doing security/infrastructure work for many organizations. i work mostly
-            rails, nuxt, and javascript. when i am off the clock i listen to music, study
+            i am a teenager and eagle scout doing security/infrastructure work for many
+            organizations. i work mostly rails, nuxt, and javascript. when i am off the clock i
+            listen to music, study
             <a
               href="https://www.nasdaq.com/market-activity/etf/qqq"
               class="text-blue-400 underline"
