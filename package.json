@@ -16,7 +16,7 @@
     "@nuxt/fonts": "0.14.0",
     "@nuxt/hints": "1.1.4",
     "@nuxt/icon": "2.4.1",
-    "@nuxt/image": "2.0.0",
+    "@nuxt/image": "2.1.0",
     "@tailwindcss/vite": "^4.3.3",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
