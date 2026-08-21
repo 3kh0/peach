@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reportError } from "~/utils/report-error";
-import { jsonLdScript } from "#shared/site";
+import { jsonLdScript, PROJECTS } from "#shared/site";
 
 useHead({
   script: [
@@ -68,6 +68,7 @@ const linkMonitor = (s: MonitorScreen) => {
 
           <div class="mt-6 flex flex-col gap-3">
             <Disclosure label="work">
+              <h3 class="sr-only">freelance and past work</h3>
               <p class="text-lg leading-8 text-white/82">
                 i am currently a freelancer but i have done work with
                 <a
@@ -91,9 +92,45 @@ const linkMonitor = (s: MonitorScreen) => {
               </p>
             </Disclosure>
 
-            <Disclosure label="projects" action @activate="projectsOpen = true" />
+            <Disclosure label="projects" action @activate="projectsOpen = true">
+              <h3 class="sr-only">featured projects</h3>
+              <p class="text-lg leading-8 text-white/82">
+                a collection of personal and professional projects. more is on
+                <a
+                  href="https://github.com/3kh0"
+                  class="text-blue-400 underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >github</a
+                >.
+              </p>
+              <article v-for="project in PROJECTS" :key="project.name" class="mt-4">
+                <h3>{{ project.name }}</h3>
+                <p>{{ project.description }}</p>
+                <p v-if="project.demo || project.repo" class="text-lg leading-8 text-white/82">
+                  <a
+                    v-if="project.demo"
+                    :href="project.demo"
+                    class="text-blue-400 underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >demo</a
+                  >
+                  <template v-if="project.demo && project.repo"> · </template>
+                  <a
+                    v-if="project.repo"
+                    :href="project.repo"
+                    class="text-blue-400 underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >repo</a
+                  >
+                </p>
+              </article>
+            </Disclosure>
 
             <Disclosure label="contact">
+              <h3 class="sr-only">email, signal, and telegram</h3>
               <p class="text-lg leading-8 text-white/82">
                 you can reach me via
                 <a
@@ -119,6 +156,7 @@ const linkMonitor = (s: MonitorScreen) => {
             </Disclosure>
 
             <Disclosure label="links">
+              <h3 class="sr-only">profiles and 88x31 buttons</h3>
               <p class="mb-2 text-lg leading-8 text-white/82">
                 you can find me on other platforms as well:
                 <a href="https://github.com/3kh0" class="text-blue-400 underline" target="_blank"

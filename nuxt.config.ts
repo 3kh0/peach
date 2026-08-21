@@ -51,6 +51,14 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/index.css"],
 
+  routeRules: {
+    "/": {
+      headers: {
+        vary: "Accept, Accept-Encoding",
+      },
+    },
+  },
+
   modules: [
     "@nuxt/image",
     "@nuxt/icon",

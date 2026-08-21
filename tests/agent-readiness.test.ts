@@ -1,12 +1,20 @@
 import { describe, expect, test } from "bun:test";
 import {
+  HOMEPAGE_PRODUCES,
+  MARKDOWN_CONTENT_TYPE,
+  PROJECTS,
+  SITE_URL,
+  VARY_ACCEPT,
   agentInstructionsMd,
+  homepageMarkdown,
   isAgentNotFoundPath,
+  isHomepagePath,
   jsonLdScript,
   llmsTxt,
+  notAcceptableBody,
   notFoundMarkdown,
   personJsonLd,
-  SITE_URL,
+  preferredType,
   sitemapXml,
   wantsMarkdownNotFound,
 } from "../shared/site";
@@ -106,10 +114,20 @@ describe("sitemap.xml", () => {
 });
 
 describe("source contracts", () => {
-  test("homepage disclosures expose an H2 outline", async () => {
+  test("homepage disclosures expose H2s with a direct text node", async () => {
     const vue = await Bun.file("app/components/Disclosure.vue").text();
     expect(vue).toContain("<h2");
     expect(vue).toContain("</h2>");
+    expect(vue).toMatch(/<h2[^>]*>\{\{\s*props\.label\s*\}\}<\/h2>/);
+  });
+
+  test("homepage HTML outline includes H1, H2s, and H3s", async () => {
+    const page = await Bun.file("app/pages/index.vue").text();
+    expect(page).toMatch(/<h1\b/);
+    expect(page).toContain("<h3");
+    expect(page).toContain("freelance and past work");
+    expect(page).toContain("featured projects");
+    expect(page).toContain('v-for="project in PROJECTS"');
   });
 
   test("homepage and config emit JSON-LD", async () => {
@@ -122,5 +140,64 @@ describe("source contracts", () => {
   test("robots.txt points at the sitemap", async () => {
     const robots = await Bun.file("public/robots.txt").text();
     expect(robots).toContain("Sitemap: https://3kh0.net/sitemap.xml");
+  });
+});
+
+describe("Accept parsing (acceptmarkdown.com)", () => {
+  const produces = HOMEPAGE_PRODUCES;
+
+  test("serves markdown when it is preferred", () => {
+    expect(preferredType("text/markdown", produces)).toBe("text/markdown");
+    expect(preferredType("text/markdown, text/html;q=0.8", produces)).toBe("text/markdown");
+    expect(preferredType("text/markdown, text/html", produces)).toBe("text/markdown");
+  });
+
+  test("serves html for browsers, */*, and missing Accept", () => {
+    expect(preferredType("text/html", produces)).toBe("text/html");
+    expect(
+      preferredType("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", produces),
+    ).toBe("text/html");
+    expect(preferredType("*/*", produces)).toBe("text/html");
+    expect(preferredType(undefined, produces)).toBe("text/html");
+    expect(preferredType(null, produces)).toBe("text/html");
+  });
+
+  test("respects q=0 and returns 406 when nothing is acceptable", () => {
+    expect(preferredType("text/markdown;q=0, text/html", produces)).toBe("text/html");
+    expect(preferredType("application/pdf", produces)).toBeNull();
+    expect(preferredType("text/markdown;q=0, text/html;q=0", produces)).toBeNull();
+  });
+
+  test("homepage path matching and 406 body list both representations", () => {
+    expect(isHomepagePath("/")).toBe(true);
+    expect(isHomepagePath("/llms.txt")).toBe(false);
+    const body = notAcceptableBody("application/pdf");
+    expect(body).toContain("text/html");
+    expect(body).toContain("text/markdown");
+    expect(body).toContain("application/pdf");
+    expect(MARKDOWN_CONTENT_TYPE).toBe("text/markdown; charset=utf-8");
+    expect(VARY_ACCEPT).toBe("Accept, Accept-Encoding");
+  });
+});
+
+describe("homepage markdown representation", () => {
+  const body = homepageMarkdown();
+
+  test("has an H1, nested H2/H3 outline, and 500+ chars", () => {
+    expect(body.startsWith("# hi, i'm echo (aka rowan)")).toBe(true);
+    expect(body).toContain("## work");
+    expect(body).toContain("### freelance and past work");
+    expect(body).toContain("## projects");
+    expect(body).toContain("### Stance");
+    expect(body).toContain("## contact");
+    expect(body).toContain("## links");
+    expect(body.length).toBeGreaterThanOrEqual(500);
+  });
+
+  test("includes contact paths and project demos from the shared catalog", () => {
+    expect(body).toContain("hello@3kh0.net");
+    expect(PROJECTS.length).toBeGreaterThan(10);
+    expect(body).toContain("https://stance.lol");
+    expect(body).toContain("https://github.com/3kh0");
   });
 });

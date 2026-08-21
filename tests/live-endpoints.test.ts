@@ -30,14 +30,17 @@ describe.skipIf(!BASE)("live agent-readiness endpoints", () => {
     expect(body).toContain("/llms.txt");
   });
 
-  test("homepage is server-rendered with H1, H2s, JSON-LD, and 500+ chars", async () => {
+  test("homepage is server-rendered with H1, H2s, H3s, JSON-LD, and 500+ chars", async () => {
     const { res, body, type } = await get("/");
     expect(res.status).toBe(200);
     expect(type).toContain("text/html");
-    expect(body).toMatch(/<h1\b/i);
-    expect(body).toMatch(/<h2\b/i);
+    expect(body).toMatch(/<h1\b[^>]*>[^<]+<\/h1>/i);
+    expect(body).toMatch(/<h2\b[^>]*>[^<]+/i);
+    expect(body).toMatch(/<h3\b[^>]*>[^<]+<\/h3>/i);
     expect(body).toContain("application/ld+json");
     expect(body).toContain('"@type":"Person"');
+    const vary = res.headers.get("vary") || "";
+    expect(vary.toLowerCase()).toContain("accept");
     const text = body
       .replace(/<script[\s\S]*?<\/script>/gi, " ")
       .replace(/<style[\s\S]*?<\/style>/gi, " ")
@@ -45,6 +48,36 @@ describe.skipIf(!BASE)("live agent-readiness endpoints", () => {
       .replace(/\s+/g, " ")
       .trim();
     expect(text.length).toBeGreaterThanOrEqual(500);
+  });
+
+  test("homepage negotiates text/markdown with Vary: Accept", async () => {
+    const { res, body, type } = await get("/", { accept: "text/markdown" });
+    expect(res.status).toBe(200);
+    expect(type).toContain("text/markdown");
+    expect(body.startsWith("# hi, i'm echo (aka rowan)")).toBe(true);
+    expect(body).toContain("## work");
+    expect(body).toContain("### Stance");
+    const vary = res.headers.get("vary") || "";
+    expect(vary.toLowerCase()).toContain("accept");
+    expect(vary.toLowerCase()).toContain("accept-encoding");
+  });
+
+  test("homepage prefers markdown when it outranks html", async () => {
+    const { res, type } = await get("/", {
+      accept: "text/markdown, text/html;q=0.8",
+    });
+    expect(res.status).toBe(200);
+    expect(type).toContain("text/markdown");
+  });
+
+  test("homepage returns 406 when Accept cannot be satisfied", async () => {
+    const { res, body, type } = await get("/", { accept: "application/pdf" });
+    expect(res.status).toBe(406);
+    expect(type).toContain("text/plain");
+    expect(body).toContain("text/html");
+    expect(body).toContain("text/markdown");
+    const vary = res.headers.get("vary") || "";
+    expect(vary.toLowerCase()).toContain("accept");
   });
 
   test("llms.txt follows the spec and includes when-to-use guidance", async () => {

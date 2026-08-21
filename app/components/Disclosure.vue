@@ -11,38 +11,35 @@ const t = () => (props.action ? emit("activate") : (open.value = !open.value));
 
 <template>
   <div class="max-w-lg">
-    <h2 class="m-0 p-0 text-2xl font-medium tracking-tight">
+    <div
+      class="group flex w-full items-baseline gap-3 py-1 text-white cursor-pointer transition-colors hover:text-blue-300"
+      @click="t"
+    >
       <button
         type="button"
-        class="group flex w-full items-baseline gap-3 py-1 text-left text-2xl font-medium tracking-tight text-white cursor-pointer transition-colors hover:text-blue-300"
+        class="disclosure-toggle-mark font-mono text-lg leading-none text-blue-400/90 select-none cursor-pointer"
         :aria-expanded="props.action ? undefined : open"
         :aria-haspopup="props.action ? 'dialog' : undefined"
-        @click="t"
+        :aria-label="props.label"
+        @click.stop="t"
       >
-        <span
-          class="disclosure-toggle-mark font-mono text-lg leading-none text-blue-400/90 select-none"
-          aria-hidden="true"
+        <span class="disclosure-toggle-mark__bracket disclosure-toggle-mark__bracket--left">[</span>
+        <Icon
+          :name="props.action ? 'tabler:arrow-up-right' : 'tabler:plus'"
+          class="disclosure-toggle-mark__icon transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          :class="!props.action && open ? 'disclosure-toggle-mark__icon--open' : ''"
+        />
+        <span class="disclosure-toggle-mark__bracket disclosure-toggle-mark__bracket--right"
+          >]</span
         >
-          <span class="disclosure-toggle-mark__bracket disclosure-toggle-mark__bracket--left"
-            >[</span
-          >
-          <Icon
-            :name="props.action ? 'tabler:arrow-up-right' : 'tabler:plus'"
-            class="disclosure-toggle-mark__icon transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
-            :class="!props.action && open ? 'disclosure-toggle-mark__icon--open' : ''"
-          />
-          <span class="disclosure-toggle-mark__bracket disclosure-toggle-mark__bracket--right"
-            >]</span
-          >
-        </span>
-        <span class="font-medium tracking-tight">{{ props.label }}</span>
       </button>
-    </h2>
+      <h2 class="m-0 p-0 text-2xl font-medium tracking-tight">{{ props.label }}</h2>
+    </div>
 
     <div
-      v-if="!props.action"
+      v-if="$slots.default"
       class="grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
-      :class="open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'"
+      :class="!props.action && open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'"
     >
       <div class="overflow-hidden">
         <div class="pt-2 pl-[2.4rem]">

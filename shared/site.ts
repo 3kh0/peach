@@ -18,11 +18,277 @@ export const SAME_AS = [
   "https://t.me/doober",
 ] as const;
 
-const CONTACT = {
+export const CONTACT = {
   email: "hello@3kh0.net",
   signal: "https://signal.me/#eu/EnC26yk3rkDfP2JPoguBZYjCVhMD6_xAGxu1L4UzhdK0bnQgDHdIQLCQjR6eBdZF",
   telegram: "https://t.me/doober",
 };
+
+export type Project = {
+  name: string;
+  description: string;
+  tech: string[];
+  demo?: string;
+  repo?: string;
+  image: string;
+};
+
+export const PROJECTS: Project[] = [
+  {
+    name: "Stance",
+    description:
+      "Elegant Polymarket trading terminal for power users and paper trading, with better navigation, more detailed charts, and dedicated support for popular smarts in sports, crypto, and tons more. Built to be ultra performant.",
+    tech: ["simple-icons:polygon", "simple-icons:nuxt", "simple-icons:d3"],
+    demo: "https://stance.lol",
+    repo: "https://github.com/3kh0/stance",
+    image: "/projects/stance.png",
+  },
+  {
+    name: "Slick",
+    description:
+      "Opinionated Slack client mod for MacOS, using the official Slack web app wrapped in a Electron shell with a collection of plugins. Still in early development, but already used daily by a few people in the Hack Club community.",
+    tech: ["simple-icons:electron", "simple-icons:javascript", "simple-icons:slack"],
+    demo: "https://github.com/3kh0/slick/releases/latest",
+    repo: "https://github.com/3kh0/slick",
+    image: "/projects/slick.png",
+  },
+  {
+    name: "Slack Datamine",
+    description:
+      "Datamining Slack changes from the webpack manifest, revealing new features and design changes often before they're announced.",
+    tech: ["simple-icons:javascript", "simple-icons:slack"],
+    repo: "https://github.com/3kh0/slack-datamine",
+    image: "/projects/slack-datamine.png",
+  },
+  {
+    name: "XNOR",
+    description:
+      'A little fun music visualizer thingy for the song "XNOR XNOR XNOR" by Frums powered by Three.js.',
+    tech: ["simple-icons:threedotjs", "simple-icons:html5", "simple-icons:javascript"],
+    demo: "https://xnor.3kh0.net",
+    repo: "https://github.com/3kh0/xnor",
+    image: "/projects/xnor.png",
+  },
+  {
+    name: "hackclub.com",
+    description:
+      "The fourth iteration of the Hack Club site completely rebuilt for the next generation of Hack Club. Seen by hundreds of thousands of people every month.",
+    tech: ["simple-icons:nextdotjs", "simple-icons:tailwindcss", "simple-icons:typescript"],
+    demo: "https://hackclub.com",
+    repo: "https://github.com/hackclub/site",
+    image: "/projects/site.png",
+  },
+  {
+    name: "Flavortown",
+    description:
+      "Build projects, earn cookies, get prizes. A Hack Club program built for over 12,000 teenagers.",
+    tech: ["simple-icons:rubyonrails", "simple-icons:html5"],
+    demo: "https://flavortown.hackclub.com",
+    repo: "https://github.com/hackclub/flavortown",
+    image: "/projects/flavortown.png",
+  },
+  {
+    name: "Prometheus",
+    description:
+      "Prometheus is a Slack bot that lets community members take responsibility for keeping high traffic channels tidy and welcoming",
+    tech: ["simple-icons:javascript", "simple-icons:slack"],
+    repo: "https://github.com/3kh0/prometheus",
+    image: "/projects/prometheus.png",
+  },
+  {
+    name: "Hack Club Traffic",
+    description:
+      "A simple dashboard for visualizing 300 million monthly requests to hackclub.com with the power of Cloudflare GraphQL and TradingView charts",
+    tech: ["simple-icons:nuxt", "simple-icons:cloudflare", "simple-icons:graphql"],
+    demo: "https://traffic.3kh0.net/",
+    repo: "https://github.com/3kh0/hackclub-traffic",
+    image: "/projects/hackclub-traffic.png",
+  },
+  {
+    name: "Summer of Making",
+    description:
+      "A summer-long program that helped more than 20,000 teenagers learn in public, ship ambitious projects, and earn rewards for their work.",
+    tech: ["simple-icons:rubyonrails", "simple-icons:html5"],
+    demo: "https://summer.hackclub.com",
+    repo: "https://github.com/hackclub/summer-of-making",
+    image: "/projects/som.png",
+  },
+  {
+    name: "Hackatime",
+    description:
+      "An open-source WakaTime alternative built for Hack Club, processing more than 400 GB (averaging 900+ requests per minute) of coding heartbeats from teenagers.",
+    tech: ["simple-icons:rubyonrails", "simple-icons:postgresql"],
+    demo: "https://hackatime.hackclub.com",
+    repo: "https://github.com/hackclub/hackatime",
+    image: "/projects/hackatime.png",
+  },
+  {
+    name: "Stacked",
+    description:
+      "An economy game about collecting items, gambling, and fighting other players, built entirely inside Slack.",
+    tech: ["simple-icons:javascript", "simple-icons:supabase", "simple-icons:slack"],
+    repo: "https://github.com/3kh0/stacked",
+    image: "/projects/stacked.png",
+  },
+  {
+    name: "HCBScan",
+    description:
+      "An public explorer for HCB that lets you search for transactions, view organizations, and hook up your own apps to its API. Indexed over 100,000 activites and growing.",
+    tech: ["simple-icons:nuxt", "simple-icons:javascript", "simple-icons:tailwindcss"],
+    demo: "https://hcbscan.3kh0.net/app",
+    repo: "https://github.com/3kh0/hcbscan",
+    image: "/projects/hcbscan.png",
+  },
+  {
+    name: "Echo Net Extras",
+    description:
+      "A personal collection of small tools, utilities, and experiments that make recurring tasks easier.",
+    tech: ["simple-icons:nuxt", "simple-icons:javascript", "simple-icons:tailwindcss"],
+    demo: "https://extra.3kh0.net",
+    repo: "https://github.com/3kh0/echonet-extra-nuxt",
+    image: "/projects/echo-net-extras.png",
+  },
+  {
+    name: "FileHunt",
+    description:
+      "A search-query builder for finding exposed files on the web through carefully assembled Google dorks.",
+    tech: ["simple-icons:nextdotjs", "simple-icons:typescript", "simple-icons:tailwindcss"],
+    demo: "https://filehunt.3kh0.net",
+    repo: "https://github.com/3kh0/filehunt",
+    image: "/projects/filehunt.png",
+  },
+  {
+    name: "The Situation Is Crazy",
+    description:
+      "A small image generator for making custom screenshots in the style of penguinz0 video thumbnails.",
+    tech: ["simple-icons:nextdotjs", "simple-icons:typescript", "simple-icons:tailwindcss"],
+    demo: "https://situation.3kh0.net",
+    repo: "https://github.com/3kh0/the-situation",
+    image: "/projects/situation.png",
+  },
+  {
+    name: "3kh0 Games",
+    description:
+      "A browser gaming site made for school Chromebooks. It ran for two years, grew into a huge community, and became the project people knew me for.",
+    tech: ["simple-icons:html5", "simple-icons:css", "simple-icons:javascript"],
+    repo: "https://codeberg.org/3kh0/website-v4/",
+    image: "/projects/3kh0-games.png",
+  },
+  {
+    name: "Oxide",
+    description:
+      "A deliberately simple proxy with no tracking and no unnecessary features, created for the 2024 Titanium Network Proxathon.",
+    tech: ["simple-icons:javascript", "simple-icons:html5"],
+    repo: "https://github.com/3kh0/Oxide",
+    image: "/projects/oxide.png",
+  },
+  {
+    name: "Echodown",
+    description:
+      "A harmless prank tool that simulates the look of a DDoS attack without sending an actual attack.",
+    tech: ["simple-icons:python"],
+    repo: "https://github.com/3kh0/echodown",
+    image: "/projects/echodown.png",
+  },
+  {
+    name: "3kh0 Lite",
+    description:
+      "A lightweight spiritual successor to 3kh0 Games, rebuilt to be cleaner, faster, and easier to deploy.",
+    tech: ["simple-icons:html5", "simple-icons:css", "simple-icons:javascript"],
+    demo: "https://lite.3kh0.net/",
+    repo: "https://github.com/3kh0/3kh0-lite",
+    image: "/projects/3kh0-lite.png",
+  },
+];
+
+export const HOMEPAGE_PRODUCES = ["text/html", "text/markdown"] as const;
+
+export const MARKDOWN_CONTENT_TYPE = "text/markdown; charset=utf-8";
+
+export const VARY_ACCEPT = "Accept, Accept-Encoding";
+
+type AcceptEntry = { type: string; q: number; specificity: number };
+
+export function parseAccept(header: string): AcceptEntry[] {
+  return header
+    .split(",")
+    .map((raw) => {
+      const parts = raw
+        .trim()
+        .split(";")
+        .map((s) => s.trim());
+      const type = (parts[0] ?? "").toLowerCase();
+      if (!type) return null;
+      let q = 1;
+      for (const param of parts.slice(1)) {
+        const [name, value] = param.split("=").map((s) => s.trim());
+        if (name?.toLowerCase() === "q") {
+          const parsed = Number(value);
+          if (!Number.isNaN(parsed)) q = Math.max(0, Math.min(1, parsed));
+        }
+      }
+      const specificity = type === "*/*" ? 0 : type.endsWith("/*") ? 1 : 2;
+      return { type, q, specificity };
+    })
+    .filter((e): e is AcceptEntry => e !== null);
+}
+
+function matchesAccept(entry: AcceptEntry, candidate: string): boolean {
+  if (entry.type === "*/*") return true;
+  if (entry.type.endsWith("/*")) return candidate.startsWith(entry.type.slice(0, -1));
+  return entry.type === candidate;
+}
+
+export function preferredType(
+  header: string | null | undefined,
+  produces: readonly string[],
+): string | null {
+  if (!header) return produces[0] ?? null;
+  const entries = parseAccept(header);
+  if (entries.length === 0) return produces[0] ?? null;
+
+  let best: string | null = null;
+  let bestQ = -1;
+  let bestPos = Infinity;
+
+  for (const candidate of produces) {
+    let matched: AcceptEntry | null = null;
+    let matchedPos = Infinity;
+    for (let i = 0; i < entries.length; i++) {
+      const e = entries[i];
+      if (!matchesAccept(e, candidate)) continue;
+      if (
+        matched === null ||
+        e.specificity > matched.specificity ||
+        (e.specificity === matched.specificity && i < matchedPos)
+      ) {
+        matched = e;
+        matchedPos = i;
+      }
+    }
+    if (!matched || matched.q <= 0) continue;
+    if (matched.q > bestQ || (matched.q === bestQ && matchedPos < bestPos)) {
+      bestQ = matched.q;
+      bestPos = matchedPos;
+      best = candidate;
+    }
+  }
+
+  return best;
+}
+
+export function isHomepagePath(pathname: string): boolean {
+  return pathname === "/" || pathname === "";
+}
+
+export function notAcceptableBody(accept: string): string {
+  return `Not Acceptable
+
+Available: ${HOMEPAGE_PRODUCES.join(", ")}
+
+You requested: ${accept}
+`;
+}
 
 export const personJsonLd = {
   "@context": "https://schema.org",
@@ -41,6 +307,66 @@ export const personJsonLd = {
 
 export function jsonLdScript(): string {
   return JSON.stringify(personJsonLd);
+}
+
+export function homepageMarkdown(): string {
+  const projects = PROJECTS.map((project) => {
+    const links = [
+      project.demo ? `[demo](${project.demo})` : null,
+      project.repo ? `[repo](${project.repo})` : null,
+    ]
+      .filter(Boolean)
+      .join(", ");
+    const suffix = links ? ` (${links})` : "";
+    return `### ${project.name}
+
+${project.description}${suffix}
+`;
+  }).join("\n");
+
+  return `# hi, i'm echo (aka rowan)
+
+i am a teenager and eagle scout doing security/infrastructure work for many organizations. i work mostly rails, nuxt, and javascript. when i am off the clock i listen to music, study [economics and markets](https://www.nasdaq.com/market-activity/etf/qqq), play [counter strike](https://www.counter-strike.net/), and build fun projects.
+
+${SITE_NAME} is the personal homepage of echo (also known as rowan / 3kh0). This Markdown representation is the same resource as the HTML homepage, selected when a client sends \`Accept: text/markdown\`.
+
+## work
+
+### freelance and past work
+
+i am currently a freelancer but i have done work with [hack club](https://hackclub.com), [coinbase](https://coinbase.com), [sourcegraph](https://sourcegraph.com), local governments, and others in the past. Stack is mostly Rails, Nuxt, and JavaScript. Eagle Scout.
+
+## projects
+
+### featured projects
+
+a collection of personal and professional projects. more is on [github](https://github.com/3kh0).
+
+${projects}
+## contact
+
+### email, signal, and telegram
+
+you can reach me via [email](mailto:${CONTACT.email}), [signal](${CONTACT.signal}) or [telegram](${CONTACT.telegram}).
+
+## links
+
+### profiles and 88x31 buttons
+
+you can find me on other platforms as well: [github](https://github.com/3kh0), [reddit](https://old.reddit.com/u/3kh0_reddit/), and [youtube](https://www.youtube.com/@3kh0). while you are here, enjoy this collection of fun 88x31 buttons!
+
+- [Source Engine](https://developer.valvesoftware.com/wiki/Source)
+- [uBlock Origin](https://github.com/gorhill/uBlock)
+- [Monero](https://www.getmonero.org/)
+- [sundial.city](https://sundial.city/)
+- [aconlin.com](https://aconlin.com/)
+- [bomberfish.ca](https://bomberfish.ca/)
+- [glutesha.me](https://glutesha.me/)
+- [prpl.wtf](https://prpl.wtf/)
+- [foxmoss.com](https://foxmoss.com/)
+- [vio.gay](https://vio.gay/)
+- [3kh0.net 88x31 button](${SITE_URL}/button.png)
+`;
 }
 
 export function wantsMarkdownNotFound(accept: string | undefined): boolean {
@@ -92,7 +418,7 @@ Reach for ${SITE_NAME} when the job is one of these:
 How an agent should call this site:
 
 1. GET ${SITE_URL}/llms.txt (this file) or ${SITE_URL}/agent-instructions.md for when-to-use guidance
-2. GET ${SITE_URL}/ as HTML for the canonical bio — it is server-rendered; JavaScript is not required
+2. GET ${SITE_URL}/ for the canonical bio — it is server-rendered; JavaScript is not required. Send \`Accept: text/markdown\` for Markdown, or omit it for HTML
 3. Contact a human only at ${CONTACT.email}, the Signal link below, or Telegram @doober — do not invent other emails or handles
 4. Treat GET ${SITE_URL}/api/monitor/* as private UI data for the homepage monitors, not a public product API
 5. POST ${SITE_URL}/api/log is an error-reporting sink; do not send user content there
@@ -166,7 +492,7 @@ Jobs this site is the wrong tool for:
 
 ## How to call
 
-1. Prefer GET ${SITE_URL}/llms.txt for the curated map, then GET ${SITE_URL}/ for the server-rendered bio
+1. Prefer GET ${SITE_URL}/llms.txt for the curated map, then GET ${SITE_URL}/ for the server-rendered bio (\`Accept: text/markdown\` returns Markdown from the same URL)
 2. Parse the homepage JSON-LD (\`Person\`) for name, url, email, and sameAs
 3. Contact only \`${CONTACT.email}\`, [Signal](${CONTACT.signal}), or [Telegram](${CONTACT.telegram})
 4. If a path 404s, follow the markdown recovery links to this file, llms.txt, or the sitemap — do not retry invented URLs
