@@ -11,29 +11,33 @@ const t = () => (props.action ? emit("activate") : (open.value = !open.value));
 
 <template>
   <div class="max-w-lg">
-    <button
-      type="button"
-      class="group flex w-full items-baseline gap-3 py-1 text-left text-2xl text-white cursor-pointer transition-colors hover:text-blue-300"
-      :aria-expanded="props.action ? undefined : open"
-      :aria-haspopup="props.action ? 'dialog' : undefined"
-      @click="t"
-    >
-      <span
-        class="disclosure-toggle-mark font-mono text-lg leading-none text-blue-400/90 select-none"
-        aria-hidden="true"
+    <h2 class="m-0 p-0 text-2xl font-medium tracking-tight">
+      <button
+        type="button"
+        class="group flex w-full items-baseline gap-3 py-1 text-left text-2xl font-medium tracking-tight text-white cursor-pointer transition-colors hover:text-blue-300"
+        :aria-expanded="props.action ? undefined : open"
+        :aria-haspopup="props.action ? 'dialog' : undefined"
+        @click="t"
       >
-        <span class="disclosure-toggle-mark__bracket disclosure-toggle-mark__bracket--left">[</span>
-        <Icon
-          :name="props.action ? 'tabler:arrow-up-right' : 'tabler:plus'"
-          class="disclosure-toggle-mark__icon transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
-          :class="!props.action && open ? 'disclosure-toggle-mark__icon--open' : ''"
-        />
-        <span class="disclosure-toggle-mark__bracket disclosure-toggle-mark__bracket--right"
-          >]</span
+        <span
+          class="disclosure-toggle-mark font-mono text-lg leading-none text-blue-400/90 select-none"
+          aria-hidden="true"
         >
-      </span>
-      <span class="font-medium tracking-tight">{{ props.label }}</span>
-    </button>
+          <span class="disclosure-toggle-mark__bracket disclosure-toggle-mark__bracket--left"
+            >[</span
+          >
+          <Icon
+            :name="props.action ? 'tabler:arrow-up-right' : 'tabler:plus'"
+            class="disclosure-toggle-mark__icon transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            :class="!props.action && open ? 'disclosure-toggle-mark__icon--open' : ''"
+          />
+          <span class="disclosure-toggle-mark__bracket disclosure-toggle-mark__bracket--right"
+            >]</span
+          >
+        </span>
+        <span class="font-medium tracking-tight">{{ props.label }}</span>
+      </button>
+    </h2>
 
     <div
       v-if="!props.action"

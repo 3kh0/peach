@@ -1,2 +1,4 @@
 User-Agent: *
 Disallow:
+
+Sitemap: https://3kh0.net/sitemap.xml

@@ -1,5 +1,15 @@
 <script setup lang="ts">
 import { reportError } from "~/utils/report-error";
+import { jsonLdScript } from "#shared/site";
+
+useHead({
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: jsonLdScript(),
+    },
+  ],
+});
 
 type MonitorScreen =
   | "welcome"

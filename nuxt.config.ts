@@ -1,5 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { fileURLToPath } from "node:url";
 import tailwindcss from "@tailwindcss/vite";
+import { jsonLdScript } from "./shared/site";
 
 export default defineNuxtConfig({
   compatibilityDate: "2026-04-28",
@@ -7,6 +9,12 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "3kh0.net",
+      script: [
+        {
+          type: "application/ld+json",
+          innerHTML: jsonLdScript(),
+        },
+      ],
       meta: [
         {
           "http-equiv": "onion-location",
@@ -60,6 +68,14 @@ export default defineNuxtConfig({
   },
 
   hooks: {
+    "nitro:config"(nitroConfig) {
+      const handler = fileURLToPath(new URL("./server/error-handler.ts", import.meta.url));
+      const existing = nitroConfig.errorHandler;
+      nitroConfig.errorHandler = [
+        handler,
+        ...(Array.isArray(existing) ? existing : existing ? [existing] : []),
+      ];
+    },
     "vite:extendConfig"(config) {
       const build = ((config as { build?: Record<string, unknown> }).build ??= {});
       const rollupOptions = (build.rollupOptions ??= {}) as {
