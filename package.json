@@ -31,6 +31,6 @@
     "@iconify-json/simple-icons": "^1.2.92",
     "@iconify-json/tabler": "^1.2.37",
     "@types/three": "^0.185.1",
-    "oxfmt": "^0.61.0"
+    "oxfmt": "^0.64.0"
   }
 }
