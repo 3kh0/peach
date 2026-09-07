@@ -3,7 +3,7 @@
 .data
 .nitro
 .cache
-# Note: .nuxt/dist is needed for Cloudflare Pages deployment
+.nuxt
 
 # Node dependencies
 node_modules
@@ -22,3 +22,6 @@ logs
 .env.*
 !.env.example
 .vercel
+
+# Cloudflare Pages build output (nitro cloudflare-pages preset)
+dist

@@ -1,6 +1,0 @@
-{
-  "build": {
-    "install": "bun install --frozen-lockfile",
-    "build": "bun run build"
-  }
-}
