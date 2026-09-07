@@ -19,8 +19,6 @@
     "@nuxt/icon": "2.5.1",
     "@nuxt/image": "2.1.0",
     "@tailwindcss/vite": "^4.3.3",
-    "@vercel/analytics": "^2.0.1",
-    "@vercel/speed-insights": "^2.0.0",
     "nuxt": "4.5.2",
     "tailwindcss": "^4.3.3",
     "three": "^0.185.1",

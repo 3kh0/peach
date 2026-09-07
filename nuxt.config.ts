@@ -59,15 +59,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: [
-    "@nuxt/image",
-    "@nuxt/icon",
-    "@nuxt/fonts",
-    "@nuxt/eslint",
-    "@vercel/speed-insights",
-    "@vercel/analytics",
-    "@nuxt/hints",
-  ],
+  modules: ["@nuxt/image", "@nuxt/icon", "@nuxt/fonts", "@nuxt/eslint", "@nuxt/hints"],
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
