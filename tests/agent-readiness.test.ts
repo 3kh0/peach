@@ -1,7 +1,9 @@
 import { describe, expect, test } from "bun:test";
 import {
+  CONTACT,
   HOMEPAGE_PRODUCES,
   MARKDOWN_CONTENT_TYPE,
+  PERSON,
   PROJECTS,
   SITE_URL,
   VARY_ACCEPT,
@@ -28,7 +30,7 @@ describe("JSON-LD Person identity", () => {
     expect(parsed.name).toBe("echo");
     expect(parsed.description.length).toBeGreaterThan(20);
     expect(parsed.url).toBe(SITE_URL);
-    expect(parsed.email).toBe("hello@3kh0.net");
+    expect(parsed.email).toBeUndefined();
     expect(parsed.sameAs).toContain("https://github.com/3kh0");
     expect(parsed.jobTitle).toBeTruthy();
   });
@@ -48,7 +50,7 @@ describe("llms.txt (llmstxt.org)", () => {
     expect(body).toContain("## When to use this");
     expect(body).toMatch(/Identify echo/i);
     expect(body).toContain("GET https://3kh0.net/");
-    expect(body).toContain("hello@3kh0.net");
+    expect(body).toContain("https://3kh0.net/#contact");
     expect(body).toContain("Do not use this site as a security news source");
   });
 
@@ -69,7 +71,7 @@ describe("agent instructions", () => {
     expect(body).toContain("## When to use this");
     expect(body).toContain("## How to call");
     expect(body).toContain("canonical bio");
-    expect(body).toContain("hello@3kh0.net");
+    expect(body).toContain("https://3kh0.net/#contact");
     expect(body).toContain("wrong tool");
   });
 });
@@ -195,9 +197,37 @@ describe("homepage markdown representation", () => {
   });
 
   test("includes contact paths and project demos from the shared catalog", () => {
-    expect(body).toContain("hello@3kh0.net");
+    expect(body).toContain("https://3kh0.net/#contact");
     expect(PROJECTS.length).toBeGreaterThan(10);
     expect(body).toContain("https://stance.lol");
     expect(body).toContain("https://github.com/3kh0");
+  });
+});
+
+describe("email address is not published in plain text", () => {
+  // The address is served only by POST /api/contact-email after a Turnstile
+  // check. Every surface below is fetchable by a harvester with one GET, so a
+  // regression here silently re-opens the spam firehose these tests guard.
+  const surfaces: Array<[string, string]> = [
+    ["JSON-LD", jsonLdScript()],
+    ["llms.txt", llmsTxt()],
+    ["agent instructions", agentInstructionsMd()],
+    ["homepage markdown", homepageMarkdown()],
+    ["404 markdown", notFoundMarkdown("/nope")],
+    ["sitemap", sitemapXml()],
+    ["406 body", notAcceptableBody("application/pdf")],
+  ];
+
+  for (const [name, body] of surfaces) {
+    test(`${name} carries no bare address or mailto: link`, () => {
+      expect(body).not.toMatch(/[\w.+-]+@[\w-]+\.[\w.]+/);
+      expect(body).not.toContain("mailto:");
+    });
+  }
+
+  test("the shared contact catalog exposes only the gated reveal URL", () => {
+    expect(CONTACT).not.toHaveProperty("email");
+    expect(CONTACT.emailReveal).toBe(`${SITE_URL}/#contact`);
+    expect(PERSON).not.toHaveProperty("email");
   });
 });

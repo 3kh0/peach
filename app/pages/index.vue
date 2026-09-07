@@ -129,16 +129,11 @@ const linkMonitor = (s: MonitorScreen) => {
               </article>
             </Disclosure>
 
-            <Disclosure label="contact">
+            <Disclosure id="contact" label="contact">
               <h3 class="sr-only">email, signal, and telegram</h3>
               <p class="text-lg leading-8 text-white/82">
                 you can reach me via
-                <a
-                  href="mailto:hello@3kh0.net"
-                  class="text-blue-400 underline"
-                  v-on="linkMonitor('email')"
-                  >email</a
-                >,
+                <ContactEmail v-on="linkMonitor('email')" />,
                 <a
                   href="https://signal.me/#eu/EnC26yk3rkDfP2JPoguBZYjCVhMD6_xAGxu1L4UzhdK0bnQgDHdIQLCQjR6eBdZF"
                   class="text-blue-400 underline"

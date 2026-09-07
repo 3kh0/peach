@@ -3,10 +3,14 @@
 </template>
 
 <script setup>
-import { frame, MONITOR_PROPS, useTitle } from "./utils";
+import { computed, onMounted, watch } from "vue";
+import { frame, MONITOR_PROPS } from "./utils";
 
 const props = defineProps(MONITOR_PROPS);
 const emit = defineEmits(["title"]);
+
+const email = useRevealedEmail();
+const label = computed(() => email.value ?? "[hidden]");
 
 const buildLines = frame(props, (ctx, l, elapsed) => {
   const w = l.cols * 0.58;
@@ -38,9 +42,11 @@ const buildLines = frame(props, (ctx, l, elapsed) => {
 
   ctx.fillStyle = "#ffffff";
   ctx.font = "5px monospace";
-  ctx.fillText("hello@3kh0.net", l.cols * 0.24, l.rows * 0.23);
+  ctx.fillText(label.value, l.cols * 0.24, l.rows * 0.23);
 });
 
 defineExpose({ buildLines });
-useTitle(emit, "hello@3kh0.net");
+
+onMounted(() => emit("title", label.value));
+watch(label, (next) => emit("title", next));
 </script>

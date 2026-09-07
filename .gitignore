@@ -25,3 +25,9 @@ logs
 
 # Cloudflare Pages build output (nitro cloudflare-pages preset)
 dist
+
+# Playwright MCP scratch output
+.playwright-mcp
+
+# Wrangler local state
+.wrangler

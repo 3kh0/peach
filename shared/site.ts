@@ -7,7 +7,6 @@ export const PERSON = {
   alternateName: ["rowan", "3kh0"] as const,
   jobTitle: "Security and infrastructure freelancer",
   description: "personal website of echo, a teenager doing security and infrastructure.",
-  email: "hello@3kh0.net",
   image: `${SITE_URL}/favicon.png`,
 };
 
@@ -19,7 +18,7 @@ export const SAME_AS = [
 ] as const;
 
 export const CONTACT = {
-  email: "hello@3kh0.net",
+  emailReveal: `${SITE_URL}/#contact`,
   signal: "https://signal.me/#eu/EnC26yk3rkDfP2JPoguBZYjCVhMD6_xAGxu1L4UzhdK0bnQgDHdIQLCQjR6eBdZF",
   telegram: "https://t.me/doober",
 };
@@ -298,7 +297,6 @@ export const personJsonLd = {
   url: SITE_URL,
   image: PERSON.image,
   description: PERSON.description,
-  email: PERSON.email,
   jobTitle: PERSON.jobTitle,
   award: "Eagle Scout",
   knowsAbout: ["security", "infrastructure", "Ruby on Rails", "Nuxt", "JavaScript"],
@@ -347,7 +345,7 @@ ${projects}
 
 ### email, signal, and telegram
 
-you can reach me via [email](mailto:${CONTACT.email}), [signal](${CONTACT.signal}) or [telegram](${CONTACT.telegram}).
+you can reach me via [signal](${CONTACT.signal}) or [telegram](${CONTACT.telegram}). my email address is no longer published in plain text — too much spam — so it is revealed by a quick human check in the [contact section](${CONTACT.emailReveal}) of the homepage.
 
 ## links
 
@@ -411,7 +409,7 @@ ${SITE_NAME} is a single-page personal homepage, not a docs site, product, or AP
 Reach for ${SITE_NAME} when the job is one of these:
 
 - Identify echo / rowan / 3kh0 as a person (not a company or a software product)
-- Get a current, canonical contact path: email, Signal, or Telegram
+- Get a current, canonical contact path: Signal, Telegram, or the human-gated email reveal
 - Find shipped projects and their demo/repo URLs (Stance, HCBScan, FileHunt, Hackatime, and others)
 - Confirm the same person across GitHub, YouTube, and Reddit
 
@@ -419,7 +417,7 @@ How an agent should call this site:
 
 1. GET ${SITE_URL}/llms.txt (this file) or ${SITE_URL}/agent-instructions.md for when-to-use guidance
 2. GET ${SITE_URL}/ for the canonical bio — it is server-rendered; JavaScript is not required. Send \`Accept: text/markdown\` for Markdown, or omit it for HTML
-3. Contact a human only at ${CONTACT.email}, the Signal link below, or Telegram @doober — do not invent other emails or handles
+3. Contact a human only via the Signal link below, Telegram @doober, or the email address revealed by the human check at ${CONTACT.emailReveal} — the address is not published in plain text and cannot be fetched by an agent, so do not invent or guess one
 4. Treat GET ${SITE_URL}/api/monitor/* as private UI data for the homepage monitors, not a public product API
 5. POST ${SITE_URL}/api/log is an error-reporting sink; do not send user content there
 
@@ -433,7 +431,7 @@ Do not use this site as a security news source, a general programming tutorial, 
 
 ## Contact
 
-- [Email](mailto:${CONTACT.email}): ${CONTACT.email}
+- [Email](${CONTACT.emailReveal}): Revealed on the homepage after a Cloudflare Turnstile check — not published in plain text
 - [Signal](${CONTACT.signal}): Signal
 - [Telegram](${CONTACT.telegram}): Telegram @doober
 
@@ -479,7 +477,7 @@ This site is the right tool when you need to identify or contact echo (aka rowan
 Best-fit jobs:
 
 - Answer "who is 3kh0 / echo / rowan?" from the canonical bio
-- Get a real contact path (email, Signal, Telegram) rather than guessing handles
+- Get a real contact path (Signal, Telegram, or the human-gated email reveal) rather than guessing handles
 - List live demos and repos for that person's projects
 - Cross-check identity with GitHub, YouTube, and Reddit
 
@@ -493,8 +491,8 @@ Jobs this site is the wrong tool for:
 ## How to call
 
 1. Prefer GET ${SITE_URL}/llms.txt for the curated map, then GET ${SITE_URL}/ for the server-rendered bio (\`Accept: text/markdown\` returns Markdown from the same URL)
-2. Parse the homepage JSON-LD (\`Person\`) for name, url, email, and sameAs
-3. Contact only \`${CONTACT.email}\`, [Signal](${CONTACT.signal}), or [Telegram](${CONTACT.telegram})
+2. Parse the homepage JSON-LD (\`Person\`) for name, url, and sameAs
+3. Contact only via [Signal](${CONTACT.signal}), [Telegram](${CONTACT.telegram}), or the email address revealed by the Turnstile check at ${CONTACT.emailReveal} — no address is published in plain text, so do not guess or infer one
 4. If a path 404s, follow the markdown recovery links to this file, llms.txt, or the sitemap — do not retry invented URLs
 
 ## Identity
@@ -502,7 +500,7 @@ Jobs this site is the wrong tool for:
 - Name: ${PERSON.name}
 - Also: ${PERSON.alternateName.join(", ")}
 - URL: ${SITE_URL}
-- Email: ${CONTACT.email}
+- Email: revealed at ${CONTACT.emailReveal} after a Turnstile check, not published in plain text
 `;
 }
 

@@ -9,6 +9,17 @@ export default defineNuxtConfig({
     preset: "cloudflare-pages",
   },
   devtools: { enabled: true },
+
+  runtimeConfig: {
+    contactEmail: "hello@3kh0.net",
+    turnstile: {
+      secret: "",
+      hostnames: "3kh0.net,www.3kh0.net",
+    },
+    public: {
+      turnstileSiteKey: "0x4AAAAAAEr2UitoTPwFmI-P",
+    },
+  },
   app: {
     head: {
       title: "3kh0.net",
