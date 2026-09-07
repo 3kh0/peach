@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { reportError } from "~/utils/report-error";
 
+const TURNSTILE_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+
 const ACTION = "reveal-email";
 
 type TurnstileApi = {
@@ -16,9 +18,11 @@ declare global {
 }
 
 const email = useRevealedEmail();
-const siteKey = useRuntimeConfig().public.turnstileSiteKey as string;
+const { turnstileSiteKey, contactRequireTurnstile } = useRuntimeConfig().public;
+const siteKey = turnstileSiteKey as string;
+const requireTurnstile = Boolean(contactRequireTurnstile);
 
-const status = ref<"idle" | "verifying" | "error">("idle");
+const status = ref<"idle" | "working" | "error">("idle");
 const copied = ref(false);
 const widgetHost = ref<HTMLElement | null>(null);
 
@@ -27,83 +31,86 @@ let scriptPromise: Promise<void> | null = null;
 let copyTimer: ReturnType<typeof setTimeout> | undefined;
 
 const label = computed(() =>
-  status.value === "verifying" ? "checking…" : status.value === "error" ? "email (retry)" : "email",
+  status.value === "working" ? "checking…" : status.value === "error" ? "email (retry)" : "email",
 );
 
-/** Turnstile's script is only fetched once someone actually asks for the address. */
+function fail(error: unknown) {
+  if (status.value !== "error") reportError("contact:reveal", error);
+  status.value = "error";
+}
+
+function dropWidget() {
+  if (widgetId && window.turnstile) window.turnstile.remove(widgetId);
+  widgetId = null;
+}
+
+async function exchange(token?: string, retried = false): Promise<void> {
+  const { ticket } = await $fetch<{ ticket: string }>("/api/contact-ticket");
+  try {
+    const res = await $fetch<{ email: string }>("/api/contact-email", {
+      method: "POST",
+      body: { ticket, ...(token ? { token } : {}) },
+    });
+    email.value = res.email;
+    status.value = "idle";
+    dropWidget();
+  } catch (error) {
+    if (!retried && (error as { statusCode?: number })?.statusCode === 409) {
+      return exchange(token, true);
+    }
+    throw error;
+  }
+}
+
 function loadTurnstile(): Promise<void> {
   if (window.turnstile) return Promise.resolve();
   scriptPromise ??= new Promise<void>((resolve, reject) => {
     const script = document.createElement("script");
-    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.src = TURNSTILE_SRC;
     script.async = true;
     script.defer = true;
     script.onload = () => resolve();
     script.onerror = () => {
       scriptPromise = null;
-      reject(new Error("turnstile script failed to load"));
+      reject(new Error("turnstile script failed to load (blocked?)"));
     };
     document.head.appendChild(script);
   });
   return scriptPromise;
 }
 
-function fail(error: unknown) {
-  // Deliberately does NOT reset the widget. Turnstile calls error-callback for
-  // a failed challenge, and resetting from inside that callback re-runs the
-  // challenge, which errors again — an unbounded request loop. The retry is
-  // driven by the visitor clicking again instead.
-  if (status.value !== "error") reportError("contact:reveal", error);
-  status.value = "error";
-}
+async function revealWithTurnstile() {
+  if (!siteKey) throw new Error("missing turnstile sitekey");
+  await loadTurnstile();
+  await nextTick();
 
-async function exchange(token: string) {
-  try {
-    const { email: revealed } = await $fetch<{ email: string }>("/api/contact-email", {
-      method: "POST",
-      body: { token },
-    });
-    email.value = revealed;
-    status.value = "idle";
-    // The address is out; the widget has nothing left to guard.
-    if (widgetId && window.turnstile) window.turnstile.remove(widgetId);
-    widgetId = null;
-  } catch (error) {
-    fail(error);
+  const host = widgetHost.value;
+  if (!host || !window.turnstile) throw new Error("turnstile unavailable");
+
+  if (widgetId) {
+    window.turnstile.reset(widgetId);
+    return;
   }
+
+  widgetId = window.turnstile.render(host, {
+    sitekey: siteKey,
+    action: ACTION,
+    appearance: "interaction-only",
+    theme: "dark",
+    callback: (token: string) => {
+      exchange(token).catch(fail);
+    },
+    "error-callback": () => fail(new Error("turnstile challenge errored")),
+    "timeout-callback": () => fail(new Error("turnstile challenge timed out")),
+  });
 }
 
 async function reveal() {
-  if (email.value || status.value === "verifying") return;
-  status.value = "verifying";
-
+  if (email.value || status.value === "working") return;
+  status.value = "working";
   try {
-    if (!siteKey) throw new Error("missing turnstile sitekey");
-    await loadTurnstile();
-    await nextTick();
-
-    const host = widgetHost.value;
-    if (!host || !window.turnstile) throw new Error("turnstile unavailable");
-
-    // Tokens are single-use, so an explicit retry reuses the widget and mints a
-    // fresh one. This is the only reset path — see the note in fail().
-    if (widgetId) {
-      window.turnstile.reset(widgetId);
-      return;
-    }
-
-    widgetId = window.turnstile.render(host, {
-      sitekey: siteKey,
-      action: ACTION,
-      appearance: "interaction-only",
-      theme: "dark",
-      callback: (token: string) => exchange(token),
-      "error-callback": () => fail(new Error("turnstile challenge errored")),
-      "timeout-callback": () => fail(new Error("turnstile challenge timed out")),
-      "expired-callback": () => {
-        if (widgetId && window.turnstile) window.turnstile.reset(widgetId);
-      },
-    });
+    if (requireTurnstile) await revealWithTurnstile();
+    else await exchange();
   } catch (error) {
     fail(error);
   }
@@ -121,7 +128,7 @@ async function copy() {
 
 onBeforeUnmount(() => {
   clearTimeout(copyTimer);
-  if (widgetId && window.turnstile) window.turnstile.remove(widgetId);
+  dropWidget();
 });
 </script>
 
@@ -132,9 +139,9 @@ onBeforeUnmount(() => {
       v-else
       type="button"
       class="cursor-pointer text-blue-400 underline"
-      :disabled="status === 'verifying'"
-      :aria-busy="status === 'verifying'"
-      title="revealed after a quick human check"
+      :disabled="status === 'working'"
+      :aria-busy="status === 'working'"
+      title="revealed after a quick check"
       @click="reveal"
     >
       {{ label }}
@@ -151,7 +158,7 @@ onBeforeUnmount(() => {
     </button>
 
     <ClientOnly>
-      <Teleport to="body">
+      <Teleport v-if="requireTurnstile" to="body">
         <div
           v-show="status !== 'idle'"
           ref="widgetHost"

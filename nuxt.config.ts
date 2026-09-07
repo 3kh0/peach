@@ -12,12 +12,14 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     contactEmail: "hello@3kh0.net",
+    contactSecret: "",
     turnstile: {
       secret: "",
       hostnames: "3kh0.net,www.3kh0.net",
     },
     public: {
       turnstileSiteKey: "0x4AAAAAAEr2UitoTPwFmI-P",
+      contactRequireTurnstile: false,
     },
   },
   app: {
