@@ -5,6 +5,9 @@ import { jsonLdScript } from "./shared/site";
 
 export default defineNuxtConfig({
   compatibilityDate: "2026-04-28",
+  nitro: {
+    preset: "cloudflare-pages",
+  },
   devtools: { enabled: true },
   app: {
     head: {

@@ -7,6 +7,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "deploy": "wrangler pages deploy .nuxt/dist",
     "postinstall": "nuxt prepare",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
@@ -19,6 +20,7 @@
     "@nuxt/icon": "2.5.1",
     "@nuxt/image": "2.1.0",
     "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.5.0",
     "nuxt": "4.5.2",
     "tailwindcss": "^4.3.3",
     "three": "^0.185.1",
@@ -29,6 +31,7 @@
     "@iconify-json/simple-icons": "^1.2.95",
     "@iconify-json/tabler": "^1.2.38",
     "@types/three": "^0.185.4",
+    "wrangler": "^4.0.0",
     "oxfmt": "^0.67.0"
   }
 }
