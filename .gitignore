@@ -1,10 +1,9 @@
-# Nuxt dev/build outputs
+# Nuxt dev outputs
 .output
 .data
-.nuxt
 .nitro
 .cache
-dist
+# Note: .nuxt/dist is needed for Cloudflare Pages deployment
 
 # Node dependencies
 node_modules

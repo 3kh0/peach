@@ -1,3 +1,6 @@
 name = "peach"
 compatibility_date = "2024-11-01"
 pages_build_output_dir = ".nuxt/dist"
+
+[build]
+command = "bun install --frozen-lockfile && bun run build"
