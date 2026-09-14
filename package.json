@@ -21,7 +21,7 @@
     "@nuxt/icon": "2.5.1",
     "@nuxt/image": "2.1.0",
     "@tailwindcss/vite": "^4.3.3",
-    "@types/node": "^26.5.0",
+    "@types/node": "^26.5.1",
     "nuxt": "4.5.2",
     "tailwindcss": "^4.3.3",
     "three": "^0.185.1",
