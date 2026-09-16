@@ -29,7 +29,7 @@
     "vue-router": "^5.3.1"
   },
   "devDependencies": {
-    "@iconify-json/simple-icons": "^1.2.95",
+    "@iconify-json/simple-icons": "^1.2.96",
     "@iconify-json/tabler": "^1.2.38",
     "@types/three": "^0.185.4",
     "oxfmt": "^0.67.0",
