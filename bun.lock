@@ -19,7 +19,7 @@
         "vue-router": "^5.3.1",
       },
       "devDependencies": {
-        "@iconify-json/simple-icons": "^1.2.98",
+        "@iconify-json/simple-icons": "^1.2.99",
         "@iconify-json/tabler": "^1.2.41",
         "@types/three": "^0.185.4",
         "oxfmt": "^0.71.0",
@@ -218,7 +218,7 @@
 
     "@humanwhocodes/retry": ["@humanwhocodes/retry@0.4.3", "", {}, "sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ=="],
 
-    "@iconify-json/simple-icons": ["@iconify-json/simple-icons@1.2.98", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-35CEBG1H/3nsohVgJaRWtOZ/P5syRTL++ZXTISdQSC76o1mAFXngFoSm9EOnnBiDApKPu8WN/DY+z69yCycL9A=="],
+    "@iconify-json/simple-icons": ["@iconify-json/simple-icons@1.2.99", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-kouZhqvUoNdxEe+lZksbJJZMCZv4b4Ob62O1GW3fcpz/I0mVPzM+9/Qf/DUuv5ns8l6c46D8M/ubhJjjbLp9HQ=="],
 
     "@iconify-json/tabler": ["@iconify-json/tabler@1.2.41", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-GHg+H/cnr0anaCoV383JONiOMxZQOdojWYNLgL3x0fRE07YW7c+AHiYmIhXet//oq26T830qitdP7l43ojiCXw=="],
 
