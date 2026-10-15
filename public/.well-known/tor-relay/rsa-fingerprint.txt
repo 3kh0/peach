@@ -1,0 +1,10 @@
+# Tor relays operated by 3kh0 (ContactInfo Information Sharing Specification, proof:uri-rsa)
+# https://github.com/nusenu/ContactInfo-Information-Sharing-Specification
+# echonetna1
+CC99563B0A445DE1083B585480B91EA9ADE8570F
+# echonetna2
+CD8947015756CDB2A6D7858470E3A7088DD1E7E6
+# echonetna3
+A23C1BF9AD35397D26E525185281C984C9A156BE
+# echonetna4
+C751A7A8203E71954E51AABE481DEB22CF7D8292
