@@ -1,9 +1,5 @@
-# Nuxt dev outputs
-.output
-.data
-.nitro
-.cache
-.nuxt
+# Vite SSR build used for prerendering (removed after `vp build`)
+.ssr
 
 # Node dependencies
 node_modules
@@ -21,9 +17,9 @@ logs
 .env
 .env.*
 !.env.example
-.vercel
+.dev.vars
 
-# Cloudflare Pages build output (nitro cloudflare-pages preset)
+# Cloudflare Pages build output
 dist
 
 # Playwright MCP scratch output

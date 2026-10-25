@@ -1,4 +1,3 @@
-import type { H3Event } from "h3";
 import { logServerError } from "./logger";
 
 export const finite = (n: unknown): number | null => {
@@ -6,29 +5,28 @@ export const finite = (n: unknown): number | null => {
   return Number.isFinite(x) ? x : null;
 };
 
-export function setMonitorCache(event: H3Event, seconds = 60) {
-  event.node.res.setHeader(
-    "cache-control",
-    `public, max-age=${seconds}, s-maxage=${seconds}, stale-while-revalidate=${seconds * 4}`,
-  );
-}
+export const monitorCache = (seconds = 60) => ({
+  "cache-control": `public, max-age=${seconds}, s-maxage=${seconds}, stale-while-revalidate=${seconds * 4}`,
+});
 
-export const monitor = <T, R>(cache: number, url: string | null, map: (d: T | null) => R) =>
-  defineEventHandler(async (event) => {
-    setMonitorCache(event, cache);
+export const monitor =
+  <T, R>(cache: number, url: string | null, map: (d: T | null) => R) =>
+  async () => {
+    let body: R | null;
     try {
-      return map(url ? await fetchJson<T>(url) : null);
+      body = map(url ? await fetchJson<T>(url) : null);
     } catch (error) {
       // A malformed upstream payload must not 500 the route — log it and fall
       // back to the handler's null shape (clients already tolerate null data).
       logServerError("monitor:handler", error, { url });
       try {
-        return map(null);
+        body = map(null);
       } catch {
-        return null;
+        body = null;
       }
     }
-  });
+    return Response.json(body, { headers: monitorCache(cache) });
+  };
 
 export async function fetchJson<T>(url: string, timeoutMs = 1800): Promise<T | null> {
   const controller = new AbortController();

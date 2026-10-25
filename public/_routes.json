@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/assets/*",
+    "/88x31/*",
+    "/music/*",
+    "/projects/*",
+    "/.well-known/*",
+    "/button.png",
+    "/button@2x.png",
+    "/favicon.ico",
+    "/favicon.png",
+    "/robots.txt",
+    "/llms.txt",
+    "/agent-instructions.md",
+    "/sitemap.xml"
+  ]
+}
