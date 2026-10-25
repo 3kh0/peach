@@ -34,6 +34,15 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    name: "Rolling Sky Unleashed",
+    description:
+      "Bullshit-free Unity web port of the hit mobile game, Rolling Sky. All ads, predatory practices, and in-app purchases removed. Playable on desktop and mobile browsers.",
+    tech: ["simple-icons:unity", "simple-icons:csharp", "simple-icons:cplusplus"],
+    demo: "https://rollingsky.3kh0.net",
+    repo: "https://github.com/3kh0/rolling-sky",
+    image: "/projects/rolling-sky.webp",
+  },
+  {
     name: "Stance",
     description:
       "Elegant Polymarket trading terminal for power users and paper trading, with better navigation, more detailed charts, and dedicated support for popular smarts in sports, crypto, and tons more. Built to be ultra performant.",
@@ -45,9 +54,9 @@ export const PROJECTS: Project[] = [
   {
     name: "Slick",
     description:
-      "Opinionated Slack client mod for MacOS, using the official Slack web app wrapped in a Electron shell with a collection of plugins. Still in early development, but already used daily by a few people in the Hack Club community.",
+      "Slick is everything you want in a client mod and nothing you don’t. It’s fast, open source, cross-platform, and fully customizable with plugins and themes. Built by people who obsess over the details.",
     tech: ["simple-icons:electron", "simple-icons:javascript", "simple-icons:slack"],
-    demo: "https://github.com/3kh0/slick/releases/latest",
+    demo: "https://slickclient.net",
     repo: "https://github.com/3kh0/slick",
     image: "/projects/slick.png",
   },
