@@ -16,7 +16,7 @@
     "vue": "^3.5.44"
   },
   "devDependencies": {
-    "@iconify-json/simple-icons": "^1.2.100",
+    "@iconify-json/simple-icons": "^1.2.101",
     "@iconify-json/tabler": "^1.2.42",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.6.5",
