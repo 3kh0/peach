@@ -26,7 +26,7 @@
     "unplugin-icons": "^24.0.0",
     "vite": "npm:@voidzero-dev/vite-plus-core@1.4.0",
     "vite-plus": "1.4.0",
-    "wrangler": "^4.152.0"
+    "wrangler": "^4.154.0"
   },
   "overrides": {
     "vite": "npm:@voidzero-dev/vite-plus-core@1.4.0"
