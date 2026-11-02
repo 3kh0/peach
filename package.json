@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@iconify-json/simple-icons": "^1.2.100",
-    "@iconify-json/tabler": "^1.2.42",
+    "@iconify-json/tabler": "^1.2.43",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.6.5",
     "@types/three": "^0.185.4",
