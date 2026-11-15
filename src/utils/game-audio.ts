@@ -7,6 +7,8 @@ export function createGameAudio() {
   let muted = false;
   let disposed = false;
   const cache = new Map<string, Promise<AudioBuffer | null>>();
+  const tracks = ["1_flux", "2_dispatch", "3_flow", "4_scramble", "5_blitz"];
+  let track = tracks[0];
 
   function init() {
     if (disposed) return false;
@@ -58,7 +60,8 @@ export function createGameAudio() {
     if (!init()) return;
     const id = ++epoch;
     stopMusic();
-    const name = `${ambient ? "ambient" : "track"}_1_flux`;
+    if (!ambient) track = tracks[Math.floor(Math.random() * tracks.length)];
+    const name = `${ambient ? "ambient" : "track"}_${track}`;
     const buffer = await load(`/game/${name}.m4a`);
     if (!buffer || id !== epoch || disposed || !context) return;
     music = context.createBufferSource();
